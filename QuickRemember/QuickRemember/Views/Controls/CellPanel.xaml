@@ -1,0 +1,54 @@
+﻿<UserControl
+    x:Class="QuickRemember.Views.Controls.CellPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convert="clr-namespace:QuickRemember.Views.Resources.Converts"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:QuickRemember.Views.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="root"
+    mc:Ignorable="d">
+
+
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="CellLableBackground">white</SolidColorBrush>
+        <SolidColorBrush x:Key="CellBorderColor">#d9d9d9</SolidColorBrush>
+
+        <SolidColorBrush x:Key="CellMouseOverBackground">#bfbfbf</SolidColorBrush>
+        <SolidColorBrush x:Key="CellBorderMouseOverColor">black</SolidColorBrush>
+
+    </UserControl.Resources>
+
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Style.Setters>
+                <Setter Property="Background" Value="{DynamicResource CellLableBackground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource CellBorderColor}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+            </Style.Setters>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource CellMouseOverBackground}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource CellBorderMouseOverColor}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+
+    <Viewbox Stretch="{Binding ElementName=root, Path=Stretch}">
+        <TextBlock
+            Width="{Binding ElementName=root, Path=ActualWidth}"
+            MaxWidth="{Binding ElementName=root, Path=ActualWidth}"
+            Background="{Binding ElementName=root, Path=Background}"
+            FontFamily="{Binding ElementName=root, Path=FontFamily}"
+            FontSize="{Binding ElementName=root, Path=FontSize}"
+            Foreground="{Binding Flag, Converter={convert:Flag2ColorConvert}}"
+            Text="{Binding Show}"
+            TextAlignment="Center"
+            TextWrapping="Wrap" />
+    </Viewbox>
+
+
+</UserControl>

@@ -1,0 +1,26 @@
+﻿<UserControl
+    x:Class="QuickRemember.Views.Controls.GridPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:control="clr-namespace:QuickRemember.Views.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:QuickRemember.Views.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="root"
+    mc:Ignorable="d">
+    <ItemsControl ItemsSource="{Binding CellPanelCollection}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <control:CellPanel
+                    DataContext="{Binding}"
+                    FontSize="{Binding CellFontSize, RelativeSource={RelativeSource AncestorType=control:GridPanel}, Mode=TwoWay}"
+                    Stretch="{Binding CellStretch, RelativeSource={RelativeSource AncestorType=control:GridPanel}, Mode=TwoWay}" />
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>
