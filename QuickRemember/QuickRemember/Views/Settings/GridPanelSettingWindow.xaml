@@ -115,8 +115,8 @@
             <Label Grid.Column="2" Content="{Binding ElementName=font, Path=Value}" />
         </Grid>
 
-        <!--  文字设置  -->
 
+        <!--  文字设置  -->
         <hc:ButtonGroup Margin="10" Style="{StaticResource ButtonGroupSolid}">
             <RadioButton
                 Content="None"
@@ -141,7 +141,9 @@
 
 
 
+
         <!--  配置设置  -->
+
 
         <hc:ButtonGroup Margin="10" Style="{StaticResource ButtonGroupSolid}">
             <RadioButton
@@ -177,7 +179,7 @@
                 IsChecked="{Binding Voice, Converter={convert:Enum2CheckedConvert}, ConverterParameter={x:Static constant:Voice.UK}}" />
         </hc:ButtonGroup>
 
-        <hc:ButtonGroup Margin="10">
+        <hc:ButtonGroup Margin="10" Style="{StaticResource ButtonGroupSolid}">
             <RadioButton
                 Content="Native"
                 GroupName="Source"
@@ -188,14 +190,32 @@
                 IsChecked="{Binding Source, Converter={convert:Enum2CheckedConvert}, ConverterParameter={x:Static constant:Source.Web}}" />
         </hc:ButtonGroup>
 
-        <hc:ProgressButton
-            Margin="10"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Command="{Binding DownLoadWebMetaWordCommand}"
-            Content="下载单词"
-            IsChecked="{Binding IsDownLoad, Mode=TwoWay}"
-            Progress="{Binding CompletedCount}"
-            Style="{StaticResource ProgressButtonInfo}" />
+        <Grid>
+            <!--  IsChecked="{Binding IsDownLoad, Mode=TwoWay}"  -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <ProgressBar
+                Grid.Column="0"
+                Margin="10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Style="{StaticResource ProgressBarInfo}"
+                Value="{Binding CompletedCount}" />
+
+            <Button
+                Grid.Column="1"
+                Width="Auto"
+                Margin="5"
+                Command="{Binding DownLoadWebMetaWordCommand}"
+                Content="下载单词"
+                Style="{StaticResource ButtonInfo}" />
+        </Grid>
+
+
+
+
     </StackPanel>
 </Window>

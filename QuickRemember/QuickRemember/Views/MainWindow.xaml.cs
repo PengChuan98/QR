@@ -4,6 +4,7 @@ using QuickRemember.ViewModels.Controls;
 using QuickRemember.Views.Settings;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,75 +25,45 @@ namespace QuickRemember
     /// </summary>
     public partial class MainWindow : Window
     {
-        GridPanelViewModel vm;
-        List<CellPanelViewModel> cellCollection = new();
+        private void LoadWindowStyle()
+        {
+            var left = Properties.WindowInfos.Default.left;
+            var top = Properties.WindowInfos.Default.top;
+            var height = Properties.WindowInfos.Default.height;
+            var width = Properties.WindowInfos.Default.width;
+
+            if (left == 0 || top == 0 || height == 0 || width == 0)
+            {
+                return;
+            }
+
+            this.Left = left;
+            this.Top = top;
+            this.Height = height;
+            this.Width = width;
+        }
+
+        private void SaveWindowStyle()
+        {
+            Properties.WindowInfos.Default.left = (int)this.Left;
+            Properties.WindowInfos.Default.top = (int)this.Top;
+            Properties.WindowInfos.Default.height = (int)this.Height;
+            Properties.WindowInfos.Default.width = (int)this.Width;
+            Properties.WindowInfos.Default.Save();
+        }
 
         public MainWindow()
         {
             InitializeComponent();
-
-
-            //string path = "";
-            //if (DialogHelper.OpenFileDialog(ref path))
-            //{
-            //    List<Models.Core.MetaWord> metas = new();
-
-
-            //    CSVHelper.Parse(CSVHelper.LoadCSVFile(path), 2).ForEach(line =>
-            //    {
-            //        metas.Add(new(line[0], line[1]));
-            //    });
-
-
-
-            //    vm = new(metas);
-            //    this.DataContext = vm;
-            //}
+            LoadWindowStyle();
         }
 
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            var data = (ViewModels.Controls.GridPanelViewModel)this.DataContext;
-            GridPanelSettingWindow w = new(data);
-            w.Show();
-        }
-
-        internal void UpdateSkin(SkinType skin)
-        {
-            Resources.MergedDictionaries.Clear();
-            Resources.MergedDictionaries.Add(new ResourceDictionary
-            {
-                Source = new Uri($"pack://application:,,,/HandyControl;component/Themes/Skin{skin.ToString()}.xaml")
-            });
-            Resources.MergedDictionaries.Add(new ResourceDictionary
-            {
-                Source = new Uri("pack://application:,,,/HandyControl;component/Themes/Theme.xaml")
-            });
-        }
-
-        SkinType skin = SkinType.Default;
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            switch (skin)
-            {
-                case SkinType.Default:
-                    UpdateSkin(SkinType.Dark);
-                    skin = SkinType.Dark;
-                    break;
-                case SkinType.Dark:
-                    UpdateSkin(SkinType.Violet);
-                    skin = SkinType.Violet;
-                    break;
-                case SkinType.Violet:
-                    UpdateSkin(SkinType.Default);
-                    skin = SkinType.Default;
-                    break;
-                default:
-                    break;
-            }
+            ((ViewModels.MVViewModel)this.DataContext).SaveDefaultSetting();
+            this.SaveWindowStyle();
         }
     }
 }

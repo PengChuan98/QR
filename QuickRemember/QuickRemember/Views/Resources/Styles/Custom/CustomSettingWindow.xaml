@@ -163,7 +163,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Content="{TemplateBinding Title}"
-                                    Style="{StaticResource BaseStyle}" />
+                                    Style="{DynamicResource BaseStyle}" />
 
                                 <StackPanel
                                     x:Name="TitleBarButtonPanel"

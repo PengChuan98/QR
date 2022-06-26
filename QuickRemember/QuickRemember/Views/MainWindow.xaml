@@ -4,22 +4,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:attach="clr-namespace:QuickRemember.Views.Resources.Attach"
     xmlns:control="clr-namespace:QuickRemember.Views.Controls"
+    xmlns:convert="clr-namespace:QuickRemember.Views.Resources.Converts"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:QuickRemember"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:QuickRemember.ViewModels"
+    Name="root"
     Title="QR"
     Width="800"
     Height="450"
     Style="{StaticResource CustomWindow}"
-    Topmost="True"
-    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <Window.DataContext>
         <vm:MVViewModel x:Name="MVViewModel" />
     </Window.DataContext>
+
+    <Window.Resources>
+        <Style BasedOn="{StaticResource CustomMenu}" TargetType="Menu" />
+        <Style BasedOn="{StaticResource CustomMenuItem}" TargetType="MenuItem" />
+    </Window.Resources>
 
 
     <Grid>
@@ -35,7 +40,8 @@
             WindowChrome.IsHitTestVisibleInChrome="True">
             <Label
                 Width="45"
-                Margin="0,0,-5,0"
+                Margin="5,0,-5,0"
+                attach:WindowAttach.IsDragElement="True"
                 Background="Transparent"
                 Content="{Binding Title, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
                 FontSize="17"
@@ -43,26 +49,24 @@
                 Style="{StaticResource BaseStyle}" />
 
             <Menu>
-                <MenuItem Command="{Binding OpenCSVFileCommand}" Header="打开文件" />
-                <MenuItem
-                    Command="{Binding ShowSettingWindowCommand}"
-                    CommandParameter="{Binding Pattern}"
-                    Header="设置" />
-                <MenuItem Command="{Binding TestCommand}" Header="测试">
-                    <MenuItem Command="{Binding OpenCSVFileCommand}" Header="打开文件" />
-                    <MenuItem
-                        Command="{Binding ShowSettingWindowCommand}"
-                        CommandParameter="{Binding Pattern}"
-                        Header="设置" />
-                    <MenuItem Command="{Binding TestCommand}" Header="测试">
-                        <MenuItem Command="{Binding OpenCSVFileCommand}" Header="打开文件" />
-                        <MenuItem
-                            Command="{Binding ShowSettingWindowCommand}"
-                            CommandParameter="{Binding Pattern}"
-                            Header="设置" />
-                        <MenuItem Command="{Binding TestCommand}" Header="测试" />
+                <MenuItem Header="文件">
+                    <MenuItem Header="打开">
+                        <MenuItem Command="{Binding LoadMWCAsCSVCommand}" Header="打开CSV文件" />
+                        <MenuItem Command="{Binding LoadMWCAsBytesCommand}" Header="打开Words文件" />
                     </MenuItem>
+
+                    <MenuItem Header="保存">
+                        <MenuItem Command="{Binding LoadMWCAsCSVCommand}" Header="保存CSV文件" />
+                        <MenuItem Command="{Binding SaveMWCAsBytesCommand}" Header="保存Words文件" />
+                    </MenuItem>
+
+                    <MenuItem Command="{Binding LoadRecentlyFileCommand}" Header="最近文件" />
                 </MenuItem>
+
+                <MenuItem
+                    Command="{Binding OpenSettingWindowCommand}"
+                    CommandParameter="{Binding Panel, Converter={convert:Panel2WindowType}}"
+                    Header="设置" />
             </Menu>
         </StackPanel>
 
@@ -70,22 +74,25 @@
 
         <DockPanel Grid.Row="1">
             <TextBox
-                Height="50"
+                Height="Auto"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
                 Background="Transparent"
                 DockPanel.Dock="Top"
                 FontSize="20"
                 Style="{StaticResource BaseStyle}"
-                Text="这是我的占位符" />
+                Text="Placement"
+                Visibility="Collapsed" />
 
             <Border
-                Grid.Row="1"
                 Margin="5"
                 BorderThickness="0.5"
                 Focusable="{Binding ElementName=root, Path=IsActive}"
-                Style="{StaticResource FocusBorder}" />
-
+                Style="{StaticResource FocusBorder}">
+                <Grid>
+                    <control:GridPanel DataContext="{Binding GPViewModel}" />
+                </Grid>
+            </Border>
         </DockPanel>
 
     </Grid>

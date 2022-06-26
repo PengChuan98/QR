@@ -2,6 +2,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Custom/CustomWindow.xaml" />
         <ResourceDictionary Source="Custom/CustomSettingWindow.xaml" />
+        <ResourceDictionary Source="Custom/CustomItem.xaml" />
 
 
         <ResourceDictionary Source="Border.xaml" />

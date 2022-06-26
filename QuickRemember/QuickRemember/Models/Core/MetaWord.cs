@@ -11,6 +11,7 @@ namespace QuickRemember.Models.Core
     /// ! 之后不使用结构体的原因是因为结构体
     /// 在后面的list中只能作为值类型的备份，不好修改
     /// </summary>
+    [Serializable]
     public class MetaWord
     {
         /// <summary>
