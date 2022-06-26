@@ -160,11 +160,19 @@ namespace QuickRemember.ViewModels.Core
                     {
                         Speaker.ReadBytesAsync(this.Meta.VoiceUSA);
                     }
+                    else
+                    {
+                        Speaker.ReadStringAsync(this.Word);
+                    }
                     break;
                 case Models.Constant.Voice.UK:
                     if (this.Meta.VoiceUK != null)
                     {
                         Speaker.ReadBytesAsync(this.Meta.VoiceUK);
+                    }
+                    else
+                    {
+                        Speaker.ReadStringAsync(this.Word);
                     }
                     break;
                 default:

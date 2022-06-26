@@ -19,7 +19,7 @@ namespace QuickRemember.ViewModels.Controls
             get => ListHelper<MetaWord>.SplitList(this.MetaWordCollection,this.Rows*this.Columns,this.Group);
         }
 
-        public List<CellPanelViewModel> CellVMCollection { get; set; }
+        public List<CellPanelViewModel> CellVMCollection { get; set; } = new();
 
         private int GetMaxGroup
         {
@@ -45,7 +45,6 @@ namespace QuickRemember.ViewModels.Controls
 
             this.DownLoadWebMetaWordCommand = new(this.DownLoadWebMetaWord);
         }
-
         #region Core
 
         public void OnPanelValueChanged()
@@ -77,7 +76,7 @@ namespace QuickRemember.ViewModels.Controls
         #endregion
 
         #region 界面属性
-        private int _rows = 10;
+        private int _rows = 18;
 
         /// <summary>
         /// 
@@ -161,7 +160,7 @@ namespace QuickRemember.ViewModels.Controls
         }
 
 
-        private System.Windows.Media.Stretch _stretch = System.Windows.Media.Stretch.Fill;
+        private System.Windows.Media.Stretch _stretch = System.Windows.Media.Stretch.Uniform;
 
         /// <summary>
         /// 
