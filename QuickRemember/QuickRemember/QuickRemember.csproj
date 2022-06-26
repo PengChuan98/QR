@@ -10,18 +10,55 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Tools\Others\" />
-    <Folder Include="Views\Resources\Themes\" />
-    <Folder Include="Properties\" />
+    <None Remove="Costura64\libHarfBuzzSharp.dll" />
+    <None Remove="Costura64\libSkiaSharp.dll" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Costura64\libHarfBuzzSharp.dll" />
+    <EmbeddedResource Include="Costura64\libSkiaSharp.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Resources\Themes\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Costura.Fody" Version="5.7.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="HandyControl" Version="3.3.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.43" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="QuestPDF" Version="2022.6.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Speech" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\WindowInfos.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WindowInfos.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Properties\WindowInfos.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>WindowInfos.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
