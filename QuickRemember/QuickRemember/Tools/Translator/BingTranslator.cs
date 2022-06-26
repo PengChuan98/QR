@@ -26,7 +26,7 @@ namespace QuickRemember.Tools.Translator
         /// 依据Word生成我需要的URL访问地址
         /// </summary>
         /// <returns></returns>
-        protected override string GenerateURL(string word) => string.Format("https://www.bing.com/dict/search?q={0}", word);
+        protected override string GenerateURL(string word) => string.Format("https://cn.bing.com/dict/search?q={0}", word);
 
         /// <summary>
         /// 
@@ -48,14 +48,16 @@ namespace QuickRemember.Tools.Translator
 
                 word.WebInterpretion = "";
                 // 获取解释
+
+                Dictionary<string, string> dict = new();
                 foreach (HtmlNode node in interpretionCollection)
                 {
                     string k = node.SelectSingleNode("span[@class=\"pos\"]|span[@class=\"pos web\"]").InnerText;
                     k = k.Contains("网络") ? "web" : k;
                     string v = node.SelectSingleNode("span[@class=\"def b_regtxt\"]/span").InnerText;
-                    word.WebInterpretion += (k + " " + v + "\n");
+                    dict[k] = v;
                 }
-
+                word.WebInterpretion = string.Join("\n", dict.Select(x => $"{x.Key}:{x.Value}"));
                 // 音标和读音的父节点
                 HtmlNode speakerNode = builder.DocumentNode.SelectSingleNode("//*/div[@class='hd_p1_1']");
 

@@ -42,7 +42,7 @@ namespace QuickRemember.Tools.Translator
         /// <summary>
         /// 对未完成内容更新的重复次数
         /// </summary>
-        public int RepeatCount { get; set; } = 5;
+        public int RepeatCount { get; set; } = 1;
 
         /// <summary>
         /// 是否强制刷新所有内容

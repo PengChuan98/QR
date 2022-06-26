@@ -37,9 +37,9 @@ namespace QuickRemember.Tools.Helper
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static async Task<byte[]> DownloadBytesAsync(string url)
+        public static async Task<byte[]?> DownloadBytesAsync(string url)
         {
-            byte[] content;
+            byte[]? content=null;
             try
             {
                 var response = await client.GetAsync(url);

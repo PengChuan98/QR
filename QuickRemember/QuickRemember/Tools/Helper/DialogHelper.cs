@@ -30,5 +30,28 @@ namespace QuickRemember.Tools.Helper
             }
             return false;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public static bool SaveFileDialog(ref string path, string filter = "CSV Files (*.csv)|*.csv|(*.*)|*.*")
+        {
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog()
+            {
+                Filter = filter,
+            };
+
+            var result = saveFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                path = saveFileDialog.FileName;
+                return true;
+            }
+            return false;
+        }
     }
 }
